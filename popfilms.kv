@@ -1,0 +1,215 @@
+#:import hex_colormap kivy.utils.hex_colormap
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+
+
+<MainScreen>
+    BoxLayout:
+        orientation:'horizontal'
+        size_hint_y: None
+        height: root.height
+
+    FitImage:
+        source: "bg.png"
+
+    AnchorLayout:
+
+        anchor_x:'center'
+        anchor_y:'top'
+        size_hint: 1, 1.15
+
+        Image:
+            source: 'myLogo.png'
+
+
+    AnchorLayout:
+
+        anchor_x:'center'
+        anchor_y:'center'
+        size_hint: 1, 0.20
+
+        Button:
+            size_hint: 0.4, 0.35
+            text: "PRESS"
+            background_color: 0.9, 0.05, 0.05, 1
+            on_press: app.to_catalog()
+
+
+
+    AnchorLayout:
+        anchor_x:'left'
+        anchor_y:'bottom'
+        size_hint: 1, 0.05
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDLabel:
+            font_size: 10
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            text: "This product uses the TMDb API but is not endorsed or certified by TMDb."
+            halign: "center"
+
+<CatalogScreen>
+    MDFloatLayout:
+        id: card
+        ScrollView:
+            MDList:
+                padding: 10,70
+                id: scroll
+
+
+    MDToolbar:
+        id: toolbar
+        title: 'Каталог'
+        md_bg_color: get_color_from_hex(hex_colormap["darkred"])
+        elevation: 10
+        pos_hint: {'top':1}
+
+
+    AnchorLayout:
+        anchor_x:'left'
+        anchor_y:'bottom'
+        size_hint: 1, 0.05
+        canvas:
+            Color:
+                rgba: 0, 0, 0, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        MDLabel:
+            font_size: 10
+            theme_text_color: "Custom"
+            text_color: 1, 1, 1, 1
+            text: "This product uses the TMDb API but is not endorsed or certified by TMDb."
+            halign: "center"
+
+
+<MyTile@SmartTileWithLabel>
+    size_hint_y: None
+    height: "100dp"
+
+
+
+<ItemLabel@MDLabel>:
+
+    # text_size: self.size
+    # halign: 'left'
+    # valign: 'middle'
+
+    size_hint: 1, 0.2
+    font_size: '12sp'
+    # theme_text_color: 'Secondary'
+    color: get_color_from_hex('#FFFFFF')
+
+
+<CardScreen>
+    MDGridLayout:
+        id: top_grid
+        cols: 3
+        size_hint: 0.9, 0.35
+        y: root.height*0.85 - self.height
+        x: root.width*0.95 - self.width
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 0.3
+
+            FitImage:
+                id: poster
+                
+        GridLayout:
+            cols: 1
+            BoxLayout:
+                size_hint: 0.15, 0.3
+                orientation: 'vertical'
+                padding: [10, 0, 0, 0]
+
+                ItemLabel:
+                    bold: True
+                    font_size: '16sp'
+                    id: title
+
+
+
+                ItemLabel:
+                    id: date
+
+                ItemLabel:
+                    id: genre
+
+                ItemLabel:
+                    id: budget
+
+
+                ItemLabel:
+                    id: writer
+
+
+                ItemLabel:
+                    id: director
+
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 0.2, 0.3
+
+            ItemLabel:
+                valign: 'top'
+                id: vote
+                font_size: '15sp'
+
+    MDGridLayout:
+        id: actors
+        cols: 5
+        size_hint: 0.9, 0.2
+        y: root.height*0.9 - (self.height + top_grid.height)*1.1
+        x: root.width*0.95 - self.width
+        adaptive_height: False
+        padding: dp(4), dp(4)
+        spacing: dp(4)
+
+
+
+    MDBoxLayout:
+        padding: dp(4), dp(4)
+        size_hint: 0.9, 0.25
+        #md_bg_color: get_color_from_hex(hex_colormap["darkred"])
+        y: root.height*0.9 - (self.height + top_grid.height)*1.5
+        x: root.width*0.95 - self.width
+
+
+        ScrollView:
+            MDLabel:
+                id: describe
+                size_hint: 1, 0.8
+                font_size: '12sp'
+                halign: 'left'
+                valign: 'top'
+
+
+
+    MDToolbar:
+        padding: 0, 0, 20, 0
+        id: toolbar
+        title: '          Каталог'
+        md_bg_color: get_color_from_hex(hex_colormap["darkred"])
+        elevation: 10
+        pos_hint: {'top':1}
+
+
+    MDIconButton:
+        id: button
+        icon: 'arrow-expand-left'
+        pos_hint: {'top': 0.99}
+        #x: root.width - self.width - dp(10)
+        #y: dp(10)
+        on_press: app.to_catalog()
+
+
+
+
